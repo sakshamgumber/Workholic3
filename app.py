@@ -2,8 +2,9 @@ from flask import Flask, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import bcrypt
+import os 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///worklogindb.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE1')
 app.config['SQLALCHEMY_BINDS'] = {"two" : "sqlite:///contlogindb.db",
                                   "three" : "sqlite:///jobsdb.db",
                                   "four" : "sqlite:///fill_formdb.db"}
@@ -205,4 +206,4 @@ def index():
     return render_template("index.html")
 
 if __name__ == "__main__":
-    app.run(debug = True)
+    app.run(debug = True,host='0.0.0.0')
